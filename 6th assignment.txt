@@ -1,0 +1,455 @@
+BUFFERS:
+
+//creating buffer
+var buf=new Buffer(20);
+console.log(buf);
+//creating buffer from an array
+var buf=new Buffer([10,20,30,40,50]);
+console.log(buf);
+//creating buffer from string and encoding types
+var buf=new Buffer("hello this is lavanya","utf8");
+console.log(buf);
+var buf=new Buffer("hello this is lavanya","ascii");
+console.log(buf);
+var buf=new Buffer("hello this is lavanya","utf16le");
+console.log(buf);
+var buf=new Buffer("hello this is lavanya","ucs2");
+console.log(buf);
+var buf=new Buffer("hello this is lavanya", "base64");
+console.log(buf);
+var buf=new Buffer("hello this is lavanya", "hex");
+console.log(buf);
+//writing to buffers
+buf=new Buffer(256);
+len=buf.write("this is lavanya from dxc technology!!!");
+console.log(len);
+console.log("good morning "+buf);
+//reading from buffers
+buf=new Buffer(26);
+var i=0;
+while(i<26){
+    buf[i]=i+65;
+    i++;
+}
+console.log(buf.toString('ascii'));
+//concatenate buffers
+buf1=new Buffer("i love coding");
+buf2=new Buffer("it is easy to learn");
+buf3=Buffer.concat([buf1,buf2]);
+console.log(buf3.toString());
+//compare buffers
+buffer1 = new Buffer('abcde');
+buffer2 = new Buffer('abcde');
+result = buffer1.compare(buffer2);
+
+if(result < 0) {
+   console.log(buffer1 +" comes before " + buffer2);
+} else if(result === 0) {
+   console.log(buffer1 +" is same as " + buffer2);
+} else {
+   console.log(buffer1 +" comes after " + buffer2);
+}
+//copy buffers
+buf1=new Buffer("hello everyone");
+buf2=new Buffer(25);
+buf1.copy(buf2);
+console.log(buf2.toString());
+//slice buffer
+buf1=new Buffer("good night guys");
+buf2=buf1.slice(2,8);
+console.log(buf2.toString());
+//buffer length
+buf1=new Buffer("good night guys,sweet dreams!!!");
+console.log(buf1.length);
+
+results:
+
+
+javascript\nodefile>node bufferexample.js
+<Buffer 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00>
+<Buffer 0a 14 1e 28 32>
+<Buffer 68 65 6c 6c 6f 20 74 68 69 73 20 69 73 20 6c 61 76 61 6e 79 61>
+<Buffer 68 65 6c 6c 6f 20 74 68 69 73 20 69 73 20 6c 61 76 61 6e 79 61>
+<Buffer 68 00 65 00 6c 00 6c 00 6f 00 20 00 74 00 68 00 69 00 73 00 20 00 69 00 73 00 20 00 6c 00 61 00 76 00 61 00 6e 00 79 00 61 00>
+<Buffer 68 00 65 00 6c 00 6c 00 6f 00 20 00 74 00 68 00 69 00 73 00 20 00 69 00 73 00 20 00 6c 00 61 00 76 00 61 00 6e 00 79 00 61 00>
+<Buffer 85 e9 65 a2 d8 62 b2 2b 25 6a f6 a7 c9>
+<Buffer >
+38
+good morning this is lavanya from dxc technology!!!
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+i love codingit is easy to learn
+abcde is same as abcde
+hello everyone
+od nig
+31
+(node:984) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+
+
+
+
+
+convert buffers to JSON objects:
+
+var buf=new Buffer("hello everyone this is lavanya from dxc technology");
+console.log(buf.toJSON());
+
+result:
+
+javascript\nodefile>node json.js
+{
+  type: 'Buffer',
+  data: [
+    104, 101, 108, 108, 111,  32, 101, 118, 101,
+    114, 121, 111, 110, 101,  32, 116, 104, 105,
+    115,  32, 105, 115,  32, 108,  97, 118,  97,
+    110, 121,  97,  32, 102, 114, 111, 109,  32,
+    100, 120,  99,  32, 116, 101,  99, 104, 110,
+    111, 108, 111, 103, 121
+  ]
+}
+(node:17228) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+
+
+
+Synchronous and Asynchronous file system:
+
+var fs=require("fs");
+//reading a file
+//Asynchronous
+fs.readFile('test.txt',function(err,data){
+    console.log(data.toString());
+});
+//synchronous
+var data=fs.readFileSync('test.txt');
+console.log(data.toString());
+//open file
+fs.open('test.txt','r',function(err,fd){
+    console.log("file opened successfully");
+    //truncating file
+    fs.ftruncate(fd, 10, function(err) {
+        console.log("File truncated successfully.");
+    });
+    //closeing file
+    fs.close(fd, function(err) {
+        console.log("File closed successfully.");
+     });
+});
+//get file information
+fs.stat('test.txt',function(err,stats){
+    console.log(stats);
+    console.log("get file information successfully");
+    console.log(stats.isFile());
+    console.log(stats.isDirectory());
+    console.log(stats.isBlockDevice());
+    console.log(stats.isCharacterDevice());
+    console.log(stats.isSymbolicLink());
+    console.log(stats.isFIFO());
+    console.log(stats.isSocket())
+});
+//writing file
+fs.writeFile('my.txt','this is lavanya',function(err){
+    console.log("data written successfully");
+    fs.readFile('my.txt',function(err,data){
+        console.log(data.toString());
+    });
+});
+fs.unlink('test.txt', function(err) {
+    console.log("File deleted successfully!");
+ });
+
+
+results:
+javascript\node js>node nodejs.js
+hii guys how are you all i hope you are fine.this is lavanya from dxc technology. i inform to all of you complete the daily tracker in time and upload the assignment links in github.
+Stats {
+  dev: 2157756904,
+  mode: 33206,
+  nlink: 1,
+  uid: 0,
+  gid: 0,
+  rdev: 0,
+  blksize: 4096,
+  ino: 3940649674264627,
+  size: 182,
+  blocks: 0,
+  atimeMs: 1596346904700.5012,
+  mtimeMs: 1596346904700.5012,
+  ctimeMs: 1596346904717.3003,
+  birthtimeMs: 1596346794951.1885,
+  atime: 2020-08-02T05:41:44.701Z,
+  mtime: 2020-08-02T05:41:44.701Z,
+  ctime: 2020-08-02T05:41:44.717Z,
+  birthtime: 2020-08-02T05:39:54.951Z
+}
+get file information successfully
+true
+false
+false
+false
+false
+false
+false
+file opened successfully
+File deleted successfully!
+File truncated successfully.
+File closed successfully.
+data written successfully
+hii guys how are you all i hope you are fine.this is lavanya from dxc technology. i inform to all of you complete the daily tracker in time and upload the assignment links in github.
+this is lavanya
+
+
+
+
+
+list of packages in Npm:
+
+javascript\node js>npm -ls
+
+Usage: npm <command>
+
+where <command> is one of:
+
+    access          npm access public [<package>]
+                    npm access restricted [<package>]
+                    npm access grant <read-only|read-write> <scope:team> [<package>]
+                    npm access revoke <scope:team> [<package>]
+                    npm access 2fa-required [<package>]
+                    npm access 2fa-not-required [<package>]
+                    npm access ls-packages [<user>|<scope>|<scope:team>]
+                    npm access ls-collaborators [<package> [<user>]]
+                    npm access edit [<package>]
+
+    adduser         npm adduser [--registry=url] [--scope=@orgname] [--auth-type=legacy] [--always-auth]
+
+                    aliases: login, add-user
+
+    audit
+                    npm audit [--json] [--production]
+                    npm audit fix [--force|--package-lock-only|--dry-run|--production|--only=(dev|prod)]
+
+    bin             npm bin [--global]
+
+    bugs            npm bugs [<pkgname>]
+
+                    alias: issues
+
+    cache           npm cache add <tarball file>
+                    npm cache add <folder>
+                    npm cache add <tarball url>
+                    npm cache add <git url>
+                    npm cache add <name>@<version>
+                    npm cache clean
+                    npm cache verify
+
+    ci              npm ci
+
+    completion      source <(npm completion)
+
+    config          npm config set <key> <value>
+                    npm config get [<key>]
+                    npm config delete <key>
+                    npm config list [--json]
+                    npm config edit
+                    npm set <key> <value>
+                    npm get [<key>]
+
+                    alias: c
+
+    dedupe          npm dedupe
+
+                    aliases: ddp, find-dupes
+
+    deprecate       npm deprecate <pkg>[@<version>] <message>
+
+    dist-tag        npm dist-tag add <pkg>@<version> [<tag>]
+                    npm dist-tag rm <pkg> <tag>
+                    npm dist-tag ls [<pkg>]
+
+                    alias: dist-tags
+
+    docs            npm docs <pkgname>
+                    npm docs .
+
+                    alias: home
+
+    doctor          npm doctor
+
+    edit            npm edit <pkg>[/<subpkg>...]
+
+    explore         npm explore <pkg> [ -- <command>]
+
+    fund            npm fund [--json]
+
+                    common options: npm fund [--browser] [[<@scope>/]<pkg> [--which=<fundingSourceNumber>]
+
+    get             npm get <key> <value> (See `npm config`)
+
+    help
+
+    help-search     npm help-search <text>
+
+    hook
+
+    init
+                    npm init [--force|-f|--yes|-y|--scope]
+                    npm init <@scope> (same as `npx <@scope>/create`)
+                    npm init [<@scope>/]<name> (same as `npx [<@scope>/]create-<name>`)
+
+                    aliases: create, innit
+
+    install
+                    npm install (with no args, in package dir)
+                    npm install [<@scope>/]<pkg>
+                    npm install [<@scope>/]<pkg>@<tag>
+                    npm install [<@scope>/]<pkg>@<version>
+                    npm install [<@scope>/]<pkg>@<version range>
+                    npm install <alias>@npm:<name>
+                    npm install <folder>
+                    npm install <tarball file>
+                    npm install <tarball url>
+                    npm install <git:// url>
+                    npm install <github username>/<github project>
+
+                    aliases: i, isntall, add
+                    common options: [--save-prod|--save-dev|--save-optional] [--save-exact] [--no-save]
+
+    install-ci-test
+                    npm install-ci-test [args]
+                    Same args as `npm ci`
+
+                    alias: cit
+
+    install-test
+                    npm install-test [args]
+                    Same args as `npm install`
+
+                    alias: it
+
+    link            npm link (in package dir)
+                    npm link [<@scope>/]<pkg>[@<version>]
+
+                    alias: ln
+
+    logout          npm logout [--registry=<url>] [--scope=<@scope>]
+
+    ls              npm ls [[<@scope>/]<pkg> ...]
+
+                    aliases: list, la, ll
+
+    org             npm org set orgname username [developer | admin | owner]
+                    npm org rm orgname username
+                    npm org ls orgname [<username>]
+
+    outdated        npm outdated [[<@scope>/]<pkg> ...]
+
+    owner           npm owner add <user> [<@scope>/]<pkg>
+                    npm owner rm <user> [<@scope>/]<pkg>
+                    npm owner ls [<@scope>/]<pkg>
+
+                    alias: author
+
+    pack            npm pack [[<@scope>/]<pkg>...] [--dry-run]
+
+    ping            npm ping
+                    ping registry
+
+    prefix          npm prefix [-g]
+
+    profile         npm profile enable-2fa [auth-only|auth-and-writes]
+                    npm profile disable-2fa
+                    npm profile get [<key>]
+                    npm profile set <key> <value>
+
+    prune           npm prune [[<@scope>/]<pkg>...] [--production]
+
+    publish         npm publish [<tarball>|<folder>] [--tag <tag>] [--access <public|restricted>] [--dry-run]
+
+                    Publishes '.' if no argument supplied
+
+                    Sets tag `latest` if no --tag specified
+
+    rebuild         npm rebuild [[<@scope>/<name>]...]
+
+                    alias: rb
+
+    repo            npm repo [<pkg>]
+
+    restart         npm restart [-- <args>]
+
+    root            npm root [-g]
+
+    run-script      npm run-script <command> [-- <args>...]
+
+                    aliases: run, rum, urn
+
+    search          npm search [--long] [search terms ...]
+
+                    aliases: s, se, find
+
+    set             npm set <key> <value> (See `npm config`)
+
+    shrinkwrap      npm shrinkwrap
+
+    star            npm star [<pkg>...]
+                    npm unstar [<pkg>...]
+
+                    alias: unstar
+
+    stars           npm stars [<user>]
+
+    start           npm start [-- <args>]
+
+    stop            npm stop [-- <args>]
+
+    team            npm team create <scope:team> [--otp <otpcode>]
+                    npm team destroy <scope:team> [--otp <otpcode>]
+                    npm team add <scope:team> <user> [--otp <otpcode>]
+                    npm team rm <scope:team> <user> [--otp <otpcode>]
+                    npm team ls <scope>|<scope:team>
+                    npm team edit <scope:team>
+
+    test            npm test [-- <args>]
+
+                    aliases: tst, t
+
+    token           npm token list
+                    npm token revoke <tokenKey>
+                    npm token create [--read-only] [--cidr=list]
+
+
+    uninstall       npm uninstall [<@scope>/]<pkg>[@<version>]... [--save-prod|--save-dev|--save-optional] [--no-save]
+
+                    aliases: un, unlink, remove, rm, r
+
+    unpublish
+                    npm unpublish [<@scope>/]<pkg>@<version>
+                    npm unpublish [<@scope>/]<pkg> --force
+
+    update          npm update [-g] [<pkg>...]
+
+                    aliases: up, upgrade, udpate
+
+    version         npm version [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease [--preid=<prerelease-id>] | from-git]
+                    (run in package dir)
+                    'npm -v' or 'npm --version' to print npm version (6.14.6)
+                    'npm view <pkg> version' to view a package's published version
+                    'npm ls' to inspect current package/dependency versions
+
+    view            npm view [<@scope>/]<pkg>[@<version>] [<field>[.subfield]...]
+
+                    aliases: v, info, show
+
+    whoami          npm whoami [--registry <registry>]
+                    (just prints username according to given registry)
+
+npm <command> -h  quick help on <command>
+npm -l            display full usage info
+npm help <term>   search for help on <term>
+npm help npm      involved overview
+
+Specify configs in the ini-formatted file:
+    C:\Users\lchintamredd\.npmrc
+or on the command line via: npm <command> --key value
+Config info can be viewed via: npm help config
+
+npm@6.14.6 C:\Program Files\nodejs\node_modules\npm
