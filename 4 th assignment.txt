@@ -1,0 +1,209 @@
+shell functions:
+
+1)hello(){
+    echo "hi this lavanya"
+}
+hello
+
+o/p:hi this lavanya
+
+2)celebrity(){
+    echo "my favourite hero: $1"
+    echo "cricker : $2"
+}
+celebrity nani sachin
+
+o/p:my favourite hero: nani
+    cricker : sachin
+
+3)celebrity(){
+    echo "my favourite hero is mahesh"
+    role
+}
+role(){
+    echo "software engineer"
+}
+celebrity
+
+o/p:
+my favourite hero is mahesh
+software engineer
+
+4)celebrity(){
+    echo "my favourite hero is $1"
+    role associate
+}
+role(){
+    echo "$1 software engineer"
+}
+celebrity nani
+
+o/p:
+my favourite hero is nani
+associate software engineer
+
+
+
+shell Arithmetic Operators:
+
+#!/bin/sh
+
+val=`expr 2 + 2`
+echo "Total value : $val"
+a=30
+b=10
+n=`expr $a + $b`
+echo $n
+n=`expr $a - $b`
+echo $n
+n=`expr $a \* $b`
+echo $n
+n=`expr $a / $b`
+echo $n
+n=`expr $a % $b`
+echo $n
+n=`expr $a == $b`
+echo $n
+n=`expr $a != $b`
+echo $n
+
+
+result:
+Total value : 4
+40
+20
+300
+3
+0
+0
+1
+
+shell Boolean Operators:
+
+a=30
+b=10
+if [ $a -lt 50 -o $b -gt 100 ]
+then 
+    echo "true"
+else
+    echo "false"
+fi
+
+if [ $a -lt 50 -a $b -gt 100 ]
+then 
+    echo "true"
+else
+    echo "false"
+fi
+
+
+results:
+true
+false
+
+
+shell Relational Operators:
+
+
+#!/bin/sh
+a=30
+b=10
+if [[ $a -eq $b ]]
+then 
+    echo "equal"
+else
+    echo "not equal"
+fi
+
+if [[ $a -ne $b ]]
+then 
+    echo "equal"
+else
+    echo "not equal"
+fi
+
+if [[ $a -gt $b ]]
+then 
+    echo "greater"
+else
+    echo "not greater"
+fi
+
+if [[ $b -lt $a ]]
+then 
+    echo "lesser"
+else
+    echo "not lesser"
+fi
+c=30
+if [[ $a -ge $c ]]
+then 
+    echo " greater equal"
+else
+    echo "not equal"
+fi
+
+if [[ $a -le $c ]]
+then 
+    echo " lesser equal"
+else
+    echo "not equal"
+fi
+
+
+results:
+not equal
+equal
+greater
+lesser
+ greater equal
+ lesser equal
+
+
+shell String Operators:
+
+str="banana"
+if [[ $str = "banana" ]]
+then 
+    echo "same"
+else
+    echo "not"
+fi
+
+if [[ $str != "banana" ]]
+then 
+    echo "same"
+else
+    echo "not"
+fi
+
+if [[ -z $str ]]
+then 
+    echo "zero length"
+else
+    echo "nonzero length"
+fi
+
+if [[ -n $str ]]
+then 
+    echo "non-zero length"
+else
+    echo "zero length"
+fi
+
+if [[ $str ]]
+then 
+    echo "not empty string"
+else
+    echo "empty string"
+fi
+
+
+
+results:
+same
+not
+nonzero length
+non-zero length
+not empty string
+
